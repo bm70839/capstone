@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Metadata for the page and link to stylesheet -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us | Explore Multimedia</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- Header section with background image and text overlay -->
+        <header class="header-image">
+            <img src="media/thailand.jpg" alt="Thailand" class="header-img">
+            <div class="header-text">
+                <h1>Brian Miriashtiani</h1>
+                <p>Contact</p>
+            </div>
+        </header>   
+        
+        <!-- Navigation bar with links to other pages -->
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="media.html">Media</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Contact Us Section -->
+        <div class="content">
+            <h1>Contact Us</h1>
+            <p>We’d love to hear from you! Whether you have a question, feedback, or just want to say hello, fill out the form below and we’ll get back to you as soon as possible.</p>
+            
+            <!-- Contact Form for user input -->
+            <form id="contactForm">
+                <!-- Name input field -->
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+              
+                <!-- Email input field -->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+              
+                <!-- Message input field -->
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+              
+                <!-- Submit button -->
+                <button type="submit">Send Message</button>
+            </form>
+
+            <!-- Navigation links to go back to Media or Home -->
+            <div class="nav-links">
+                <a href="media.html">Back to Media</a>
+                <a href="index.html">Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Footer Section with copyright information -->
+        <footer>
+            &copy; 2025 Explore Multimedia. All rights reserved.
+        </footer>
+
+    </body>
+
+    <!-- JavaScript to handle form submission and download CSV locally -->
+    <script>
+        // Handle the form submission locally
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          e.preventDefault(); // Stop the actual form submission
+        
+          // Get form field values
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const message = document.getElementById('message').value.trim();
+        
+          // Create CSV content (header + data)
+          const csvContent = `Name,Email,Message\n"${name}","${email}","${message}"`;
+        
+          // Create a Blob from the CSV
+          const blob = new Blob([csvContent], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+        
+          // Create a temporary <a> to trigger the download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'contact-form-data.txt';
+          document.body.appendChild(a);
+          a.click();
+        
+          // Clean up
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+    </script>
+</html>
